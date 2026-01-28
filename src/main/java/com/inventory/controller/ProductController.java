@@ -38,9 +38,11 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteProduct(id);
-    }
+public void deleteProduct(@PathVariable Long id) {
+    service.deleteProduct(id);
+}
+
+
 
     @PostMapping("/stock-in")
     public void stockIn(@RequestBody Map<String, String> data) {
@@ -64,4 +66,10 @@ public class ProductController {
     public List<Product> all() {
         return service.allProducts();
     }
+
+    @GetMapping("/fifo")
+public List<Product> getFifoProducts() {
+    return service.getFifoStock();
+}
+
 }

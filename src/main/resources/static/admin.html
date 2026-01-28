@@ -1,65 +1,440 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Admin</title>
-<link rel="stylesheet" href="style.css">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<script>
-const user = JSON.parse(localStorage.getItem("currentUser"));
-if (!user || user.role !== "admin") {
-  window.location = "login.html";
-}
-</script>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    if (!user || user.role !== "admin") {
+      window.location = "login.html";
+    }
+  </script>
 </head>
 
 <body>
 
-<h2>Admin Dashboard</h2>
+<div class="layout">
 
-<div class="box">
-  <p>✅ Login Successful</p>
-  <p>Welcome Admin</p>
-  <button onclick="logout()">Logout</button>
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="brand"></div>
+
+   <button class="nav-btn active" onclick="showSection('homeSection',event)">
+  <i class="fas fa-house icon-home"></i>
+  <span>Home</span>
+</button>
+
+<button class="nav-btn" onclick="showSection('productSection',event)">
+  <i class="fas fa-pills icon-product"></i>
+  <span>Product</span>
+</button>
+
+<button class="nav-btn" onclick="showSection('fifoSection', event)"><i class="fas fa-box-open icon-stockout"></i>
+  Stock Out (FIFO)
+</button>
+
+<button class="nav-btn" onclick="showSection('alertSection')">
+  <i class="fas fa-triangle-exclamation icon-alert"></i>
+  <span>Alert</span>
+</button>
+
+<button class="nav-btn" onclick="showSection('userSection')">
+  <i class="fas fa-user-doctor icon-user"></i>
+  <span>Users</span>
+</button>
+
+<button class ="nav-btn" onclick="showSection('transactionSection',event)"><i class="fas fa-clock-rotate-left icon-transaction"></i>
+Transactions</button>
+
+<button class="nav-btn" onclick="showSection('reportSection')">
+  <i class="fas fa-chart-line icon-report"></i>
+  <span>Report</span>
+</button>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main-content">
+
+    <!-- ===== TOP BAR ===== -->
+    <div class="topbar">
+     <h2 class="dashboard-title">
+  Admin <span>Dashboard</span>
+</h2>
+
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- ================= HOME ================= -->
+    <div id="homeSection" class="section active">
+     
+      <div class="stats">
+        <div class="stat-card">
+          <p>Total Products</p>
+         <h1 id="totalCount">0</h1>
+
+        </div>
+
+        
+        <div class="stat-card good">
+          <p>Available</p>
+          <h1 id="availableCount">0</h1>
+        </div>
+        <div class="stat-card low">
+          <p>Low Stock</p>
+         <h1 id="lowStockCount">0</h1>
+        </div>
+        <div class="stat-card critical">
+          <p>Critical</p>
+         <h1 id="criticalCount">0</h1>
+        </div>
+
+        <div class="stat-card expiry">
+  <p>Expiring Soon (7 days)</p>
+  <h1 id="expiringCount">0</h1>
 </div>
 
-<!-- ================= ADD PRODUCT SECTION (MODULE 2) ================= -->
+<div class="stat-card expired">
+  <p>Expired</p>
+  <h1 id="expiredCount">0</h1>
+</div>
 
-<div class="box">
-  <h3>Product & Inventory Management</h3>
+      </div>
 
-  <input id="psku" placeholder="SKU">
-<input id="pname" placeholder="Product Name">
-<input id="psupplier" placeholder="Supplier">
-<input id="pcat" placeholder="Category">
-<input id="pprice" type="number" placeholder="Price">
-<input id="pqty" type="number" placeholder="Quantity">
+   <div class="center-container">
+  <img
+    src="/images/healthcare.png"
+    alt="healthcare"
+    class="logo-3d"
+  />
+</div>
+
+    </div>
 
 
-  <button type="button" id="addBtn">Add Product</button>
+    <!-- ================= PRODUCT ================= -->
+<div id="productSection" class="section">
 
-  <p id="pmsg"></p>
+  <!-- Header -->
+  <div class="product-header">
+    <h3>All Products</h3>
+    <button class="add-btn" onclick="toggleProductForm()">+ Add Product</button>
+  </div>
+
+  <!-- ADD PRODUCT FORM (HIDDEN BY DEFAULT) -->
+  <div id="productForm" class="box form-hide">
+
+    <h3>Add New Product</h3>
+
+    <input id="psku" placeholder="SKU">
+    <input id="pname" placeholder="Product Name">
+    <input id="psupplier" placeholder="Supplier">
+    <input id="pcat" placeholder="Category">
+    <input id="pprice" type="number" placeholder="Price">
+    <input id="pqty" type="number" placeholder="Quantity">
+    <input id="pexpiry" type="date" placeholder="Expiry Date">
+
+
+    <button type="button" id="addBtn">Add Product</button>
+    <button type="button" class="cancel-btn" onclick="toggleProductForm()">Cancel</button>
+
+    <p id="pmsg"></p>
+  </div>
+
+  <!-- PRODUCT TABLE -->
+  <div class="box">
+    <table>
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Name</th>
+          <th>Supplier</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          
+          <th>Expiry Date</th>
 <th>Actions</th>
 
- <table>
-  <thead>
-    <tr>
-      <th>SKU</th>
-      <th>Name</th>
-      <th>Supplier</th>
-      <th>Category</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-
-  <tbody id="ptable"></tbody>
-</table>
-
-
+        </tr>
+      </thead>
+      <tbody id="ptable"></tbody>
+    </table>
+  </div>
 
 </div>
 
+
+    <!-- ================= ALERT ================= -->
+    <section id="alertSection" class="section">
+
+  <button onclick="loadAlerts()"><i class="fas fa-sync-alt"></i>
+ Load Stock Alerts</button>
+  <button onclick="loadExpiryAlerts()"><i class="fas fa-hourglass-end"></i>
+
+
+ Load Expiry Alerts</button>
+
+  <!-- ===== STOCK ALERTS ===== -->
+  <div class="box">
+    <h3><i class="fas fa-triangle-exclamation"></i>
+Stock Alerts (Low / Critical)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Message</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="stockAlertTable"></tbody>
+    </table>
+  </div>
+
+
+  
+  <!-- ===== EXPIRY ALERTS ===== -->
+  <div class="box">
+    <h3><i class="fas fa-hourglass-end"></i>
+ Expiry Alerts</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Message</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="expiryAlertTable"></tbody>
+    </table>
+  </div>
+
+</section>
+
+
+    <!-- ================= USERS ================= -->
+    <section id="userSection" class="section">
+      <div class="box">
+        <h3>User Management</h3>
+
+        <input id="uname" placeholder="Username / Email">
+        <select id="urole">
+          <option value="">Select Role</option>
+          <option value="admin">Admin</option>
+          <option value="emp">Employee</option>
+        </select>
+
+        <button id="addUserBtn">Add User</button>
+        <p id="umsg"></p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="utable"></tbody>
+        </table>
+      </div>
+      </section>
+    
+
+    <!-- ================= REPORT ================= -->
+    <section id="reportSection" class="section">
+      <div class="box">
+        <h3>Reports & Analytics</h3>
+        <button onclick="generateReport()">Generate Report</button>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Available Stock</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="rtable"></tbody>
+        </table>
+ <button onclick="downloadPdf()">Download PDF</button>
+<div class="chart-wrapper">
+  <canvas id="stockBarChart"></canvas>
+</div>
+
+<div class="chart-wrapper">
+  <canvas id="statusPieChart"></canvas>
+</div>
+       
+      </div>
+    </section>
+
+<!-- ================= TRANSACTION HISTORY ================= -->
+<section id="transactionSection" class="section">
+
+  <div class="box">
+    <h3><i class="fas fa-clock-rotate-left"></i>
+ Transaction History</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>SKU</th>
+          <th>Product</th>
+          <th>Action</th>
+          <th>Quantity</th>
+          <th>Performed By</th>
+        </tr>
+      </thead>
+      <tbody id="transactionTable"></tbody>
+    </table>
+
+  </div>
+</section>
+
+<section id="fifoSection" class="section">
+
+  <div class="box">
+    <h3><i class="fas fa-hourglass-start"></i>
+ FIFO Stock Out</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>SKU</th>
+          <th>Expiry Date</th>
+          <th>Days Left</th>
+          <th>Quantity</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+
+      <tbody id="fifoTable"></tbody>
+    </table>
+  </div>
+
+</section>
+
+
+  </main>
+</div>
+
+<script>
+
+
+function loadHomeStats() {
+
+  fetch("http://localhost:8080/api/dashboard/summary")
+    .then(res => res.json())
+    .then(data => {
+console.log("Dashboard data:", data);
+
+      let total = data.total;
+      let available = data.available;
+      let low = data.low;
+      let critical = data.critical;
+
+      // 🔹 Update dashboard cards
+      document.getElementById("totalCount").innerText = total;
+      document.getElementById("availableCount").innerText = available;
+      document.getElementById("lowStockCount").innerText = low;
+      document.getElementById("criticalCount").innerText = critical;
+       loadExpirySummary();
+    })
+    .catch(err => console.error("Home stats error:", err));
+}
+
+window.addEventListener("load", loadHomeStats);
+document.addEventListener("DOMContentLoaded", () => {
+  loadHomeStats();
+});
+
+
+function generateReport() {
+
+  fetch("http://localhost:8080/api/reports")
+    .then(res => res.json())
+    .then(data => {
+
+      const table = document.getElementById("rtable");
+      table.innerHTML = "";
+
+      let ok = 0, low = 0, critical = 0;
+      let names = [];
+      let qtys = [];
+
+      data.forEach(p => {
+        table.innerHTML += `
+          <tr>
+            <td>${p.name}</td>
+            <td>${p.qty}</td>
+            <td>${p.status}</td>
+          </tr>
+        `;
+
+        names.push(p.name);
+        qtys.push(p.qty);
+
+        if (p.status === "OK") ok++;
+        if (p.status === "LOW") low++;
+        if (p.status === "CRITICAL") critical++;
+      });
+
+      drawBarChart(names, qtys);
+      drawPieChart(ok, low, critical);
+    });
+}
+
+let barChart;
+let pieChart;
+
+function drawBarChart(labels, data) {
+
+  if (barChart) barChart.destroy();
+
+  barChart = new Chart(document.getElementById("stockBarChart"), {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Available Stock",
+        data: data,
+        backgroundColor: "#1abc9c"
+      }]
+    }
+  });
+}
+
+function drawPieChart(ok, low, critical) {
+
+  if (pieChart) pieChart.destroy();
+
+  pieChart = new Chart(document.getElementById("statusPieChart"), {
+    type: "doughnut",
+    data: {
+      labels: ["OK", "LOW", "CRITICAL"],
+      datasets: [{
+        data: [ok, low, critical],
+        backgroundColor: ["#2ecc71", "#f1c40f", "#e74c3c"]
+      }]
+    }
+  });
+}
+
+
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>

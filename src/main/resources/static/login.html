@@ -2,29 +2,48 @@
 <html>
 <head>
   <title>Login</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
-<h2>Inventory - Login</h2>
+<div class="login-container">
 
-<div class="box">
-  <input id="user" placeholder="Email">
-  <input id="pass" type="password" placeholder="Password">
+  <!-- LEFT : 50% -->
+  <div class="login-left">
+    <img src="/images/logo.png" alt="3D Image">
+    <h1>Healthcare Inventory Management</h1>
+    <p>Secure  Fast  Reliable</p>
+  </div>
 
-  <select id="role">
-    <option value="">Select Role</option>
-    <option value="admin">Admin</option>
-    <option value="emp">Employee</option>
-  </select>
+  <!-- RIGHT : 50% -->
+  <div class="login-right">
+    <div class="box">
+      <h2>Inventory Login</h2>
 
-  <button id="loginBtn">Login</button>
-  <p id="msg"></p>
+      <input id="user" placeholder="Email">
+      <input id="pass" type="password" placeholder="Password">
 
-  <a href="register.html">Register</a> |
+      <select id="role">
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="emp">Employee</option>
+      </select>
+
+      <button id="loginBtn">Login</button>
+      <p id="msg"></p>
+
+     <div class="links">
+  <a href="register.html">Register</a>
+  <span class="divider">|</span>
   <a href="forgot.html">Forgot Password?</a>
+</div>
+
+    </div>
+  </div>
+
 </div>
 
 <script src="script.js"></script>
 </body>
+
 </html>

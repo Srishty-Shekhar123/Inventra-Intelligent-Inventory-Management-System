@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Forgot Password</title>
-<link rel="stylesheet" href="style.css">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
-<h2>Forgot Password</h2>
+<div class="login-container">
 
-<div class="box">
-  <input id="fuser" placeholder="Email">
-  <button id="otpBtn">Send OTP</button>
-
-  <div id="otpBox" style="display:none;">
-    <input id="otp" placeholder="OTP">
-    <input id="newpass" type="password" placeholder="New Password">
-    <input id="confpass" type="password" placeholder="Confirm Password">
-    <button id="verifyBtn">Reset Password</button>
+  <!-- LEFT : 50% -->
+  <div class="login-left">
+    <img src="/images/logo.png" alt="3D Image">
+    <h1>Password Recovery</h1>
+    <p>Secure account recovery</p>
   </div>
 
-  <p id="info"></p>
-  <p id="fmsg"></p>
+  <!-- RIGHT : 50% -->
+  <div class="login-right">
+    <div class="box">
+      <h2>Forgot Password</h2>
+
+      <input id="fuser" placeholder="Email">
+      <button id="otpBtn">Send OTP</button>
+
+      <div id="otpBox" style="display:none;">
+        <input id="otp" placeholder="OTP">
+        <input id="newpass" type="password" placeholder="New Password">
+        <input id="confpass" type="password" placeholder="Confirm Password">
+        <button id="verifyBtn">Reset Password</button>
+      </div>
+
+      <p id="info"></p>
+      <p id="fmsg"></p>
+
+      <div class="links">
+        <a href="login.html">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script src="script.js"></script>

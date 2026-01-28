@@ -62,19 +62,25 @@ public class AuthService {
       
 
     // ================= LOGIN =================
-    public User login(String email, String password, String role) {
+   public User login(String email, String password, String role) {
 
-        Optional<User> opt = repo.findByEmail(email);
-        if (opt.isEmpty()) return null;
+    Optional<User> opt = repo.findByEmail(email);
+    if (opt.isEmpty()) return null;
 
-        User user = opt.get();
+    User user = opt.get();
 
-        if (!encoder.matches(password, user.getPassword())) return null;
-
-        if (!user.getRole().equalsIgnoreCase(role)) return null;
-
-        return user;
+    //   THIS CHECK (BLOCKED USER)
+    if (!user.isActive()) {
+        throw new RuntimeException("User is blocked by admin");
     }
+
+    if (!encoder.matches(password, user.getPassword())) return null;
+
+    if (!user.getRole().equalsIgnoreCase(role)) return null;
+
+    return user;
+}
+
 
     // ================= SEND OTP =================
    public void sendOtp(String email) {

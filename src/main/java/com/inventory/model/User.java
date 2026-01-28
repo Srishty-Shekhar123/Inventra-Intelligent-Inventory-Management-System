@@ -22,6 +22,9 @@ public class User {
     private String role;
     private String otp;
 
+    // ✅ ADD THIS FIELD
+    private boolean active = true;
+
     // getters and setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -37,4 +40,13 @@ public class User {
 
     public String getOtp() { return otp; }
     public void setOtp(String otp) { this.otp = otp; }
+
+    // ✅ ADD THESE METHODS
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

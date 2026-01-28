@@ -2,26 +2,42 @@
 <html>
 <head>
   <title>Register</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
-<h2>Inventory - Register</h2>
+<div class="login-container">
 
-<div class="box">
-  <input id="ruser" placeholder="Email">
-  <input id="rpass" type="password" placeholder="Password">
+  <!-- LEFT : 50% (SAME DESIGN) -->
+  <div class="login-left">
+    <img src="/images/logo.png" alt="3D Image">
+    <h1>Inventory Management</h1>
+    <p>Create your account</p>
+  </div>
 
-  <select id="rrole">
-    <option value="">Select Role</option>
-    <option value="admin">Admin</option>
-    <option value="emp">Employee</option>
-  </select>
+  <!-- RIGHT : 50% -->
+  <div class="login-right">
+    <div class="box">
+      <h2>Inventory Register</h2>
 
-  <button id="regBtn">Register</button>
-  <p id="rmsg"></p>
+      <input id="ruser" placeholder="Email">
+      <input id="rpass" type="password" placeholder="Password">
 
-  <a href="login.html">Go to Login</a>
+      <select id="rrole">
+        <option value="">Select Role</option>
+        <option value="admin">Admin</option>
+        <option value="emp">Employee</option>
+      </select>
+
+      <button id="regBtn">Register</button>
+      <p id="rmsg"></p>
+
+      <div class="links">
+        <a href="login.html">Go to Login</a>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script src="script.js"></script>
