@@ -6,7 +6,7 @@ The following was discovered as part of building this project:
 
 Inventory Management System
 
-This is a team-based Inventory Management System developed using Spring Boot for backend and HTML, CSS, JavaScript for frontend.
+This is a Inventory Management System developed using Spring Boot for backend and HTML, CSS, JavaScript for frontend.
 The system supports role-based login for Admin and Employee users.
 
 🛠 Technologies Used
