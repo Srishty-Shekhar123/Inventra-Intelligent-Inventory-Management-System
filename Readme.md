@@ -4,6 +4,8 @@ The following was discovered as part of building this project:
 * The original package name 'com.inventory.inventory-backend' is invalid and this project uses 'com.inventory.inventory_backend' instead.
 
 Demostration Link:https://drive.google.com/drive/folders/1XS4B2M-5fQg9WlVW_7JNiv2Kp2fuYeGI?usp=sharing
+
+
 Inventory Management System
 
 This is a Inventory Management System developed using Spring Boot for backend and HTML, CSS, JavaScript for frontend.
